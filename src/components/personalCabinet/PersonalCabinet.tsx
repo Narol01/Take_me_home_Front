@@ -42,7 +42,7 @@ export default function PersonalCabinet() {
           <div className={s.avatar_preview}>
             {user?.photoUrls && (
               <img
-                src={`${"http://localhost:8080"}${user.photoUrls}`}
+                src={`${"/"}${user.photoUrls}`}
                 alt="User Avatar"
               />
             )}
