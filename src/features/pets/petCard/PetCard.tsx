@@ -76,7 +76,7 @@ export default function PetCard() {
           pet.photoUrls.map((url, index) => (
             <img
               key={index}
-              src={`${"http://localhost:8080"}${url}`} 
+              src={`${"https://take-me-home-sqbog.ondigitalocean.app"}${url}`} 
               alt={`Pet ${index}`}
               style={{
                 width: "200px",
