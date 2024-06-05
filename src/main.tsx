@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import App from "./App"
 import { store } from "./app/store"
 import "./index.css"
-import { BrowserRouter } from "react-router-dom"
+import { HashRouter } from "react-router-dom"
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6"
 import { QueryParamProvider } from "use-query-params"
 
@@ -16,11 +16,11 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <QueryParamProvider adapter={ReactRouter6Adapter}>
             <App />
           </QueryParamProvider>
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     </React.StrictMode>,
   )
