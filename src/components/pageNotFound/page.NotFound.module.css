@@ -1,0 +1,49 @@
+.container_pnf {
+  background-color: #54cd38;
+  width: 50%;
+  text-align: center;
+  margin-top: 93px;
+  
+}
+
+.body_pnf {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  color: #333;
+  margin: 0;
+  padding-top: 150px;
+  padding-bottom: 350px;
+}
+
+.body_pnf img {
+  width: 150px;
+  height: 100%;
+}
+
+.heading_pnf {
+  font-size: 46px;
+  margin-bottom: 30px;
+}
+
+.message_pnf {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+.button_pnf {
+  background-color: grey;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #007bff;
+}

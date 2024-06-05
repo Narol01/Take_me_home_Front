@@ -1,0 +1,73 @@
+.containerWantHelp {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 150px;
+  font:
+    18px Helvetica,
+    Ubuntu,
+    sans-serif;
+}
+
+.h2WantHelp {
+  font-size: 40px;
+  text-align: center;
+  color: #54cd38;
+  margin-bottom: 20px;
+}
+
+.block_wantHelp {
+  margin-bottom: 20px;
+}
+
+.pWantHelp {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #757575;
+  text-align: justify;
+}
+
+.h3WantHelp {
+  font-size: 30px;
+  text-align: center;
+  color: #54cd38;
+  margin-bottom: 15px;
+}
+
+.sectionWantHelp {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.imageContainerWantHelp {
+   height: 300px;
+   min-width:  300px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.imageWantHelp {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.ulWantHelp {
+  list-style-type: none;
+  padding: 0;
+}
+
+.liWantHelp {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #757575;
+    text-align: justify;
+}
+
+.strongWantHelp {
+  color: #545252;
+  font-weight: bold;
+}
+
+

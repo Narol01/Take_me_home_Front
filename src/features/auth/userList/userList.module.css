@@ -1,0 +1,36 @@
+.userListContainer {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .userList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .userCard {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .userCard p {
+    margin: 5px 0;
+  }
+  
+  .userCard h3 {
+    margin: 0;
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
