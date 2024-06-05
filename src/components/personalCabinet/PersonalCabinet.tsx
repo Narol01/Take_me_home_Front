@@ -42,7 +42,7 @@ export default function PersonalCabinet() {
           <div className={s.avatar_preview}>
             {user?.photoUrls && (
               <img
-                src={`${"/"}${user.photoUrls}`}
+                src={`${"https://take-me-home-sqbog.ondigitalocean.app"}${user.photoUrls}`}
                 alt="User Avatar"
               />
             )}
