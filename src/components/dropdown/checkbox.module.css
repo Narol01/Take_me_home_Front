@@ -1,11 +1,11 @@
-.disability_checkbox{
-    display: flex;
-    align-items: center;
+.disability_checkbox {
+  display: flex;
+  align-items: center;
 }
-.disability_checkbox input{
- width: 25px;
- height: 25px;
+.disability_checkbox input {
+  width: 25px;
+  height: 25px;
 }
 .disability_label {
-    margin-right: 10px;
+  margin-right: 10px;
 }

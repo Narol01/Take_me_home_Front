@@ -40,21 +40,21 @@ export default function Header() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/wantHelp">I want to help</Link>
+                <Link to="/want-help">I want to help</Link>
               </li>
               <li>
-                <a href="#!">How it works</a>
+                <Link to="/how-it-works">How it works</Link>
               </li>
 
               {userSelected ? (
                 <>
                   {userSelected.login === "admin" ? (
                     <li>
-                      <Link to="/adminCabinet">Admin Cabinet</Link>
+                      <Link to="/admin-cabinet">Admin Cabinet</Link>
                     </li>
                   ) : (
                     <li>
-                      <Link to={`/personalCabinet/${userSelected.login}`}>
+                      <Link to={`/personal-cabinet/${userSelected.login}`}>
                         Personal cabinet
                       </Link>
                     </li>
@@ -71,7 +71,7 @@ export default function Header() {
                     <Link to="/register">Sign up</Link>
                   </li>
                   <li>
-                    <Link to="/loginForm">Sign in</Link>
+                    <Link to="/login-form">Sign in</Link>
                   </li>
                 </>
               )}

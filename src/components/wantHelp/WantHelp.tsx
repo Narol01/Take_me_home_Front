@@ -131,7 +131,7 @@ export default function WantHelp() {
         </div>
       </div>
 
-      <p className={s.pWantHelp}>
+      <p className={s.p_WantHelp}>
         From all the furry friends, THANK YOU FOR YOUR HELP!
       </p>
     </div>

@@ -1,10 +1,15 @@
 .homePageContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items:flex-start;
   margin: 40px 80px 0px 80px;
   gap: 40px;
   position: relative;
+}
+
+.content_buttons{
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
@@ -32,8 +37,8 @@
   padding-right: 40px;
 }
 .found_pet_btn {
-  position: absolute;
-  top: 780px;
+  /* position: absolute;
+  top: 780px; */
   padding: 30px;
   width: 320px;
   height: 320px;
@@ -47,9 +52,9 @@
 }
 
 .how_work_btn {
-  position: absolute;
+  /* position: absolute;
   top: 910px;
-  right: 310px;
+  right: 310px; */
   padding: 30px;
   width: 260px;
   height: 260px;
@@ -80,7 +85,7 @@
 .lookingFor {
   display: block;
   justify-content: center;
-  margin-top: 330px;
+  margin-top: 120px;
   margin-bottom: 20px;
 }
 .lookingForTitle {

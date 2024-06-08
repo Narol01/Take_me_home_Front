@@ -1,7 +1,8 @@
 .containerWantHelp {
-  max-width: 80%;
+  max-width: 70%;
   margin: 0 auto;
-  padding: 150px;
+  padding-top: 150px;
+  padding-bottom: 40px;
   font:
     18px Helvetica,
     Ubuntu,
@@ -70,4 +71,9 @@
   font-weight: bold;
 }
 
-
+.p_WantHelp {
+  font-family: "Kaushan Script", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  color: #54cd38;
+}

@@ -168,6 +168,7 @@ export const authSlice = createAppSlice({
       state.user = undefined
       state.token = undefined
       state.isAuthenticated = false
+      localStorage.removeItem("token");
     }),
 
     checkAuth: create.reducer(state => {

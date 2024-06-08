@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useAppDispatch } from "../../app/hooks";
-import { register } from "../../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import s from "./register.module.css";
-import * as Yup from "yup";
+import React, { useState } from "react"
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import { useAppDispatch } from "../../app/hooks"
+import { register } from "../../features/auth/authSlice"
+import { Link, useNavigate } from "react-router-dom"
+import s from "./register.module.css"
+import * as Yup from "yup"
+import open from "./../../media/icons/openEye.png"
+import close from "./../../media/icons/closeEye.png"
 
 export default function Register() {
-  
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialValues = {
     email: "",
@@ -22,61 +24,70 @@ export default function Register() {
     telegram: "",
     agreeToTerms: false,
     avatar: null as File | null,
-  };
+  }
 
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required("Required"),
+    fullName: Yup.string().matches(/^[A-Za-z]+$/, "Name can only contain Latin letters").required("Required"),
     login: Yup.string().required("Required"),
     password: Yup.string()
       .min(4, "Password must be at least 4 characters")
+      .max(8, "Password must be no more than 8 characters") 
+      .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number") 
       .required("Required"),
     email: Yup.string().email("Invalid email format").required("Required"),
     phone: Yup.string(),
-     website: Yup.string(),
+    website: Yup.string(),
     telegram: Yup.string(),
     agreeToTerms: Yup.bool().oneOf([true], "You must agree to the terms"),
-  });
+  })
 
   const handleAvatarChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: (field: string, value: any) => void) => {
+    setFieldValue: (field: string, value: any) => void,
+  ) => {
+    const files = event.currentTarget.files
+    if (files && files.length > 0) {
+      const file = files[0]
 
-      const files = event.currentTarget.files;
-      if (files && files.length > 0) {
-        const file = files[0];
-
-        setFieldValue("avatar", file);
-        const avatarPreview = URL.createObjectURL(file);
-        setAvatarPreview(avatarPreview);
+      setFieldValue("avatar", file)
+      const avatarPreview = URL.createObjectURL(file)
+      setAvatarPreview(avatarPreview)
     }
-  };
+  }
 
   return (
     <div className={s.register}>
-      <div className={s.register_container}>
-        <h2>Create your account</h2>
+      <div className={s.outerBox_register}>
+        <h1>Create your account</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const { avatar, agreeToTerms, ...user } = values;
+            const { avatar, agreeToTerms, ...user } = values
             try {
-              await dispatch(register({ user, file: avatar as File }));
-              resetForm();
-              navigate("/");
+              await dispatch(register({ user, file: avatar as File }))
+              resetForm()
+              navigate("/")
             } catch (error) {
-              console.error("Error in registration: ", error);
+              console.error("Error in registration: ", error)
             } finally {
-              setSubmitting(false);
+              setSubmitting(false)
             }
           }}
         >
           {({ setFieldValue, isSubmitting }) => (
             <Form className={s.register_form}>
-              <div className={s.avatar_upload}>
-                <div className={s.avatar_preview}>
+              <div
+                className={s.uploadGroup__register}
+                onClick={() => document.getElementById("fileInput")?.click()}
+              >
+                <div className={s.uploadControls_register}>
                   {avatarPreview ? (
-                    <img src={avatarPreview} alt="Avatar Preview" />
+                    <img
+                      src={avatarPreview}
+                      alt="Avatar Preview"
+                      className={s.photo_register}
+                    />
                   ) : (
                     <div className={s.avatar_placeholder}>
                       <span>+</span>
@@ -85,22 +96,25 @@ export default function Register() {
                 </div>
                 <input
                   type="file"
+                  id="fileInput"
                   name="avatar"
                   accept="image/*"
-                  onChange={(event) => handleAvatarChange(event, setFieldValue)}
+                  onChange={event => handleAvatarChange(event, setFieldValue)}
+                  style={{ display: "none" }}
                 />
-                <ErrorMessage name="avatar" component="div" className={s.error} />
+                <ErrorMessage
+                  name="avatar"
+                  component="div"
+                  className={s.error}
+                />
               </div>
 
-              <div className={s.form_group}>
-                <label htmlFor="fullName" className={s.required_field}>
-                  Full Name
-                </label>
+              <div className={s.form_group_register}>
                 <Field
                   type="text"
                   name="fullName"
-                  className={s.form_control}
-                  placeholder="Full Name"
+                  className={s.form_control_register}
+                  placeholder="Full Name*"
                 />
                 <ErrorMessage
                   name="fullName"
@@ -109,15 +123,12 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
-                <label htmlFor="login" className={s.required_field}>
-                  Username
-                </label>
+              <div className={s.form_group_register}>
                 <Field
                   type="text"
                   name="login"
-                  className={s.form_control}
-                  placeholder="Username"
+                  className={s.form_control_register}
+                  placeholder="Username*"
                 />
                 <ErrorMessage
                   name="login"
@@ -126,16 +137,31 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
-                <label htmlFor="password" className={s.required_field}>
+              <div className={s.form_group_register}>
+
+              <div className={s.password_wrapper_register}>
+                {/* <label htmlFor="password" className={s.required_field}>
                   Password
-                </label>
+                </label> */}
+
                 <Field
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
-                  className={s.form_control}
-                  placeholder="Password"
+                  className={s.form_control_register}
+                  placeholder="Password*"
                 />
+                <button
+                    type="button"
+                    className={s.toggle_password_register}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    <img
+                      src={showPassword ? close : open}
+                      alt="Toggle visibility"
+                      className={s.icon_register}
+                    />
+                  </button>
+                  </div>
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -143,15 +169,12 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
-                <label htmlFor="email" className={s.required_field}>
-                  Email
-                </label>
+              <div className={s.form_group_register}>
                 <Field
                   type="email"
                   name="email"
-                  className={s.form_control}
-                  placeholder="Email"
+                  className={`${s.form_control_register} required`}
+                  placeholder="Email*"
                 />
                 <ErrorMessage
                   name="email"
@@ -160,11 +183,11 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
+              <div className={s.form_group_register}>
                 <Field
                   type="text"
                   name="phone"
-                  className={s.form_control}
+                  className={s.form_control_register}
                   placeholder="Phone"
                 />
                 <ErrorMessage
@@ -174,11 +197,11 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
+              <div className={s.form_group_register}>
                 <Field
                   type="text"
                   name="website"
-                  className={s.form_control}
+                  className={s.form_control_register}
                   placeholder="Website"
                 />
                 <ErrorMessage
@@ -188,11 +211,11 @@ export default function Register() {
                 />
               </div>
 
-              <div className={s.form_group}>
+              <div className={s.form_group_register}>
                 <Field
                   type="text"
                   name="telegram"
-                  className={s.form_control}
+                  className={s.form_control_register}
                   placeholder="Telegram"
                 />
                 <ErrorMessage
@@ -202,14 +225,13 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group checkbox-group">
-                <Field
-                  type="checkbox"
-                  name="agreeToTerms"
-                  className={s.form_control}
-                />
+              <div className={s.formGroup_checkboxGroup}>
+                <Field type="checkbox" name="agreeToTerms" />
                 <label htmlFor="agreeToTerms">
-                  I agree to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms">Terms</a>.
+                  I agree to{" "}
+                  <Link to="/privacy-policy" className={s.checkboxGroup_link}>
+                    Privacy Policy
+                  </Link>                  
                 </label>
                 <ErrorMessage
                   name="agreeToTerms"
@@ -220,7 +242,7 @@ export default function Register() {
 
               <button
                 type="submit"
-                className={s.submit_button}
+                className={s.formButton_register}
                 disabled={isSubmitting}
               >
                 Create
@@ -228,16 +250,19 @@ export default function Register() {
             </Form>
           )}
         </Formik>
-        <p>
-        Already have an account?{" "}
-        <span
-          style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}
-          onClick={() => navigate("/loginForm")}
-        >
-          Sign in
-        </span>
-      </p>
+        <div className={s.accountExist}>
+          <p>
+            Already have an account?{"  "}
+            <span
+              style={{ color: "green", cursor: "pointer" }}
+              onClick={() => navigate("/login-form")}
+              className={s.accountExist_login}
+            >
+              Sign in
+            </span>
+          </p>
+        </div>
       </div>
     </div>
-  );
+  )
 }

@@ -19,8 +19,12 @@ import AdminCabinet from "./components/adminCabinet/AdminCabinet"
 import UserPetsList from "./components/adminCabinet/userPetsList/UserPetsList"
 import WantHelp from "./components/wantHelp/WantHelp"
 import PageNotFound from "./components/pageNotFound"
-import Messages from "./components/personalCabinet/messages/Messages"
+import Chat from "./components/personalCabinet/chat/Chat"
 import FoundAnimal from "./components/foundAnimal/FoundAnimal"
+import Adverts from "./components/personalCabinet/adverts/Adverts"
+import Profile from "./components/personalCabinet/profile/Profile"
+import HowItWorks from "./components/howItWorks/HowItWorks"
+import PrivacyPolicy from "./components/privacyPolicy/PrivacyPolicy"
 
 const App = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
@@ -40,21 +44,25 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="loginForm" element={<LoginForm />} />
+          <Route path="login-form" element={<LoginForm />} />
           <Route path="register" element={<Register />} />
-          <Route path="personalCabinet/:author" element={<PersonalCabinet />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="adminCabinet" element={<AdminCabinet />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="personal-cabinet/:author" element={<PersonalCabinet />} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="adverts" element={<Adverts />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="admin-cabinet" element={<AdminCabinet />} />
           <Route path="/user/:login/pets" element={<UserPetsList />} />
-          <Route path="editUser" element={<EditUser />} />
-          <Route path="editPet/:petId" element={<EditPet />} />
-          <Route path="newPassword" element={<NewPassword />} />
-          <Route path="createPet" element={<CreatePet />} />
-          <Route path="userList" element={<UserList />} />
+          <Route path="edit-user" element={<EditUser />} />
+          <Route path="edit-pet/:petId" element={<EditPet />} />
+          <Route path="new-password" element={<NewPassword />} />
+          <Route path="create-pet" element={<CreatePet />} />
+          <Route path="user-list" element={<UserList />} />
           <Route path="pets" element={<PetsList />} />
-          <Route path="petCard/:petId" element={<PetCard />} />
-          <Route path="wantHelp" element={<WantHelp />} />
-          <Route path="foundAnimal" element={<FoundAnimal />} />
+          <Route path="pet-card/:petId" element={<PetCard />} />
+          <Route path="want-help" element={<WantHelp />} />
+          <Route path="found-animal" element={<FoundAnimal />} />
+          <Route path="how-it-works" element={<HowItWorks />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

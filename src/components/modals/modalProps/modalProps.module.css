@@ -22,8 +22,10 @@
   .modal_header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items:baseline;
     margin-bottom: 10px;
+    font-size: 20px;
+    font-family: "Ubuntu", sans-serif;
   }
   
   .close_button {

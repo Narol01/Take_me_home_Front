@@ -1,47 +1,81 @@
 .container_found_pet {
-    margin-top: 107px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 200px); /* Adjust the height based on your header and footer height */
-    text-align: center;
-    background: linear-gradient(90deg, rgba(46, 204, 113, 1) 0%, rgba(39, 174, 96, 1) 100%);
-    padding: 20px;
-  }
-  
-  .heading {
-    font-size: 36px;
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  .subHeading {
-    font-size: 24px;
-    color: white;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 800px;
-    text-align: left;
-    color: black;
-  }
-  
-  .sectionTitle {
-    font-size: 24px;
-    color: #54cd38;
-    margin-bottom: 10px;
-  }
-  
-  .paragraph {
-    font-size: 16px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  
+  margin: 100px 100px 0 100px;
+  padding: 50px 0 50px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.box_found_pet {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(
+    90deg,
+    rgb(46, 204, 80) 0%,
+    rgb(14, 154, 44) 100%
+  );
+  padding: 20px;
+}
+
+.heading_found {
+  font-size: 36px;
+  color: white;
+  margin-top: 10px;
+}
+
+.subHeading {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.box_content_found {
+  display: flex;
+  align-items: flex-end;
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(121, 154, 121, 0.5);
+  max-width: 80%; 
+  margin: 20px 0;
+}
+
+.imageContainerFound_cat {
+  margin-right: 20px;
+  max-width: 30%; 
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; 
+}
+
+.imageFound {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.content_found {
+  flex: 1;
+  min-width: 200px;
+  text-align: center; 
+}
+
+.sectionTitle_found {
+  font-size: 24px;
+  color: #54cd38;
+  margin-bottom: 10px;
+}
+
+.paragraph_found {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}

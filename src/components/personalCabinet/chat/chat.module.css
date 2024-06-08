@@ -1,0 +1,40 @@
+.chat {
+    border: 1px solid #ccc;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #fff;
+    
+  }
+  
+  .chat h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .chat_list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .chat_item {
+    color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  .chat_button {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight:lighter;
+  }
+  
+  .chat_button:hover {
+    text-decoration: underline;
+    color: #2a2a2a;
+  }
+  

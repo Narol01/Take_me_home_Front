@@ -1,52 +1,51 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import {
-  login,
-  selectLoginError,
-} from "../../features/auth/authSlice"
-import { UserLoginDto } from "../../features/auth/types"
-import { Link, useNavigate } from "react-router-dom"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import * as Yup from "yup"
-import styles from "./login.module.css"
-import { useState } from "react"
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { login, selectLoginError } from "../../features/auth/authSlice";
+import { UserLoginDto } from "../../features/auth/types";
+import { Link, useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import styles from "./login.module.css";
+import { useState } from "react";
+import open from "./../../media/icons/openEye.png"
+import close from "./../../media/icons/closeEye.png"
 
 
-export default function  LoginForm() {
-
+export default function LoginForm() {
   const dispatch = useAppDispatch();
   const message = useAppSelector(selectLoginError);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialValues: UserLoginDto = {
     login: "",
     password: "",
-  }
+  };
 
   const validationSchema = Yup.object().shape({
     login: Yup.string().required("Username is required"),
     password: Yup.string()
       .min(4, "Password must be at least 4 characters")
+      .max(8, "Password must be no more than 8 characters") 
+      .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number") 
       .required("Password is required"),
-  })
+  });
 
-  
   const handleLogin = async (values: UserLoginDto) => {
     try {
-      const dispatchResult = await dispatch(login(values))
+      const dispatchResult = await dispatch(login(values));
       if (login.fulfilled.match(dispatchResult)) {
-        // сказать Тане
-        const redirectPath = localStorage.getItem("redirectAfterLogin")
+        const redirectPath = localStorage.getItem("redirectAfterLogin");
         if (redirectPath) {
-          localStorage.removeItem("redirectAfterLogin")
-          navigate(redirectPath)
+          localStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath);
         } else {
-        navigate("/")
+          navigate("/");
         }
       }
     } catch (error) {
-      console.error("Authorization error:", error)
+      console.error("Authorization error:", error);
     }
-  }
+  };
 
   return (
     <div className={styles.login_container}>
@@ -77,12 +76,25 @@ export default function  LoginForm() {
                 />
               </div>
               <div className={styles.input_group}>
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  className={styles.input_pass}
-                />
+                <div className={styles.password_wrapper}>
+                  <Field
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Password"
+                    className={styles.input_pass}
+                  />
+                  <button
+                    type="button"
+                    className={styles.toggle_password}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    <img
+                      src={showPassword ? close : open}
+                      alt="Toggle visibility"
+                      className={styles.icon}
+                    />
+                  </button>
+                </div>
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -99,9 +111,8 @@ export default function  LoginForm() {
             </Form>
           )}
         </Formik>
-        {/* <a href="#" className={styles.link}>Forgot password</a> */}
         <Link className={styles.link_account} to="/register">Create an account</Link>
       </div>
     </div>
-  )
+  );
 }

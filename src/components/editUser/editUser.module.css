@@ -1,0 +1,315 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+  }
+  
+  .container_edituser {
+    margin-top: 150px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .outerBox_editUser {
+    background: #f9f9f9;
+    background: -moz-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -o-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -ms-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#f9f9f9', GradientType=0);
+    -webkit-box-shadow: 0 1px 0 #fff inset;
+    -moz-box-shadow: 0 1px 0 #fff inset;
+    -ms-box-shadow: 0 1px 0 #fff inset;
+    -o-box-shadow: 0 1px 0 #fff inset;
+    box-shadow: 0 1px 0 #fff inset;
+    border: 1px solid #c4c6ca;
+    margin: 0 auto;
+    padding: 25px 0 0;
+    position: relative;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    max-width: 700px;
+    margin-bottom: 50px;
+  }
+  
+  .outerBox_editUser::before,
+  .outerBox_editUser::after {
+    background: #f9f9f9;
+    background: -moz-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -o-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: -ms-linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    background: linear-gradient(
+      top,
+      rgba(248, 248, 248, 1) 0%,
+      rgba(249, 249, 249, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8', endColorstr='#f9f9f9', GradientType=0);
+    border: 1px solid #c4c6ca;
+    content: "";
+    display: block;
+    height: 100%;
+    left: -1px;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .outerBox_editUser::before {
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    -o-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+    top: 0;
+    z-index: -2;
+  }
+  
+  .outerBox_editUser::after {
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    transform: rotate(3deg);
+    top: 0;
+    z-index: -1;
+  }
+  
+  .outerBox_editUser h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #54cd38;
+    font: bold 25px Helvetica, Ubuntu, sans-serif;
+    letter-spacing: -0.05em;
+    line-height: 20px;
+    margin: 10px 0 30px;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup select,
+  .formGroup input[type="text"],
+  .formGroup textarea {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    -moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    -ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    -o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    margin: 0 100px;
+    width: 500px;
+    padding: 5px;
+    border: 1px solid #c8c8c8;
+    background: #eae7e7;
+    box-sizing: border-box;
+    color: #777;
+    font: 15px Helvetica, Arial, sans-serif;
+  }
+  
+  .formGroup input:focus,
+  .formGroup select:focus,
+  .formGroup textarea:focus {
+    -webkit-box-shadow: 0 0 2px #25dc1b inset;
+    -moz-box-shadow: 0 0 2px #25dc1b inset;
+    -ms-box-shadow: 0 0 2px #25dc1b inset;
+    -o-box-shadow: 0 0 2px #25dc1b inset;
+    box-shadow: 0 0 2px #25dc1b inset;
+    background-color: #fff;
+    border: 1px solid #25dc1b;
+    outline: none;
+  }
+  
+  textarea {
+    height: 150px;
+    resize: none;
+  }
+  
+  .uploadGroup {
+    margin-top: 20px;
+  }
+  
+  .uploadGroup label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .formGroup select,
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup textarea {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+  -moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+  -ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+  -o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+  box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  margin: 0 100px;
+  width: 500px;
+  padding: 5px;
+  border: 1px solid #c8c8c8;
+  background: #eae7e7;
+  box-sizing: border-box;
+  color: #777;
+  font: 15px Helvetica, Arial, sans-serif;
+}
+  
+  .uploadControls {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #cec9c8;
+    background: #f0f1f1;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .button_edit_photo {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: #25dc1b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .button_edit_photo:hover {
+    background-color: #378724;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  
+  .button_edit_photo input {
+    display: none;
+  }
+  
+  .button_edit_photo .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .formButton_editUser {
+    margin-top: 25px;
+    margin-bottom: 40px;
+    width: 250px;
+    height: 40px;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: #68d74e;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+  }
+  
+  .formButton_editUser:hover {
+    background-color: #378724;
+    opacity: 0.8;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    height: 12px;
+    text-align: center;
+  }
+  
+  .formGroup label {
+    font-size: 14px;
+    text-align: start;
+    margin-left: 100px;
+    margin-bottom: 5px;
+    color: #939598;
+  }
+  
+  .uploadGroup label {
+    font-size: 15px;
+    color: #939598;
+  }
+  

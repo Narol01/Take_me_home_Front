@@ -93,7 +93,7 @@ export default function CreatePet() {
             try {
               await dispatch(addPet({ petDTO, files }))
               alert("Pet details updated successfully")
-              navigate(`/personalCabinet/${userSelected?.login}`)
+              navigate(`/personal-cabinet/${userSelected?.login}`)
               resetForm()
             } catch (error) {
               console.error("Error then registering a pet: ", error)
@@ -107,7 +107,7 @@ export default function CreatePet() {
             <Form>
               <div className={styles.formGroup}>
                 <Field as="select" name="petType">
-                  <option value="" label="Select pet type" />
+                  <option value="" label="Select pet type*" />
                   {petTypeList.map((type, index) => (
                     <option key={index} value={type.value}>
                       {type.value}
@@ -123,7 +123,7 @@ export default function CreatePet() {
 
               <div className={styles.formGroup}>
                 <Field as="select" name="category">
-                  <option value="" label="Select category" />
+                  <option value="" label="Select category*" />
                   {categoryList.map((category, index) => (
                     <option key={index} value={category.value}>
                       {category.value}
@@ -139,7 +139,7 @@ export default function CreatePet() {
 
               <div className={styles.formGroup}>
                 <Field as="select" name="gender">
-                  <option value="" label="Select gender" />
+                  <option value="" label="Select sex*" />
                   {sexList.map((gender, index) => (
                     <option key={index} value={gender.value}>
                       {gender.value}
@@ -155,7 +155,7 @@ export default function CreatePet() {
 
               <div className={styles.formGroup}>
                 <Field as="select" name="age">
-                  <option value="" label="Select age" />
+                  <option value="" label="Select age*" />
                   {ageList.map((age, index) => (
                     <option key={index} value={age.value}>
                       {age.value}
@@ -171,7 +171,7 @@ export default function CreatePet() {
 
               <div className={styles.formGroup}>
                 <Field as="select" name="country">
-                  <option value="" label="Select country" />
+                  <option value="" label="Select country*" />
                   {countryList.map((country, index) => (
                     <option key={index} value={country.value}>
                       {country.value}
@@ -202,7 +202,7 @@ export default function CreatePet() {
                 <Field
                   name="caption"
                   type="text"
-                  placeholder="Title (maximum 100 characters)"
+                  placeholder="Title* (maximum 100 characters)"
                   maxLength={100}
                 />
                 <ErrorMessage
@@ -216,7 +216,7 @@ export default function CreatePet() {
                 <Field
                   name="description"
                   as="textarea"
-                  placeholder="Describe the animal's history, features, character"
+                  placeholder="Describe the animal's history, features, character*"
                 />
                 <ErrorMessage
                   name="description"
