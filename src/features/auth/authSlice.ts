@@ -1,23 +1,9 @@
 import { createAppSlice } from "../../app/createAppSlice"
-import type {
-  AuthState,
-  UserCreateDto,
-  UserLoginDto,
-  UserUpdateDto,
-} from "./types"
-import {
-  PasswordDto,
-  fetchCurrentUser,
-  fetchDeleteUser,
-  fetchLogin,
-  fetchPassword,
-  fetchRegister,
-  fetchUpdateUser,
-   fetchUser,
-  fetchUsers,
-} from "./api"
+import type { AuthState, UserCreateDto, UserLoginDto, UserUpdateDto} from "./types"
+import { PasswordDto, fetchCurrentUser, fetchDeleteUser, fetchLogin, fetchPassword, fetchRegister, fetchUpdateUser, fetchUser, fetchUsers} from "./api"
 
 const initialState: AuthState = {
+
   user: undefined,
   userUpdateDto: undefined,
   userList: [],
@@ -42,6 +28,7 @@ export const authSlice = createAppSlice({
         pending: state => {},
         fulfilled: (state, action) => {
           state.userList.push(action.payload)
+          state.registerErrorMessage = undefined;
           // state.user = action.payload
         },
         rejected: (state, action) => {
@@ -208,26 +195,5 @@ export const authSlice = createAppSlice({
   },
 })
 
-export const {
-  register,
-  login,
-  user,
-  logout,
-  checkAuth,
-  author,
-  updateUser,
-  deleteUser,
-  getUsers,
-  changePassword,
-} = authSlice.actions
-
-export const {
-  selectUser,
-  selectUserContacts,
-  selectRoles,
-  selectUsers,
-  selectIsAuthenticated,
-  selectToken,
-  selectLoginError,
-  selectRegisterError,
-} = authSlice.selectors
+export const { register, login, user, logout, checkAuth, author, updateUser, deleteUser, getUsers, changePassword} = authSlice.actions
+export const { selectUser, selectUserContacts, selectRoles, selectUsers, selectIsAuthenticated, selectToken, selectLoginError, selectRegisterError} = authSlice.selectors

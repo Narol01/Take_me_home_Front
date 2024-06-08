@@ -37,8 +37,6 @@
   padding-right: 40px;
 }
 .found_pet_btn {
-  /* position: absolute;
-  top: 780px; */
   padding: 30px;
   width: 320px;
   height: 320px;
@@ -52,9 +50,6 @@
 }
 
 .how_work_btn {
-  /* position: absolute;
-  top: 910px;
-  right: 310px; */
   padding: 30px;
   width: 260px;
   height: 260px;

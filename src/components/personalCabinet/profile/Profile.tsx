@@ -7,6 +7,7 @@ import { getPetsByFilter } from "../../../features/pets/petsSlice"
 import ModalDeleteAccount from "../../modals/modalDeleteAccount/ModalDeleteAccount"
 
 export default function Profile() {
+
   const user = useAppSelector(selectUser)
   const { author } = useParams<{ author: string }>()
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ export default function Profile() {
     if (user) {
       const result = await dispatch(deleteUser(user.id))
       if (deleteUser.fulfilled.match(result)) {
-        navigate("/") // Перенаправление на домашнюю страницу
+        navigate("/") 
       } else {
         console.error("Failed to delete user", result.error.message)
       }
@@ -44,6 +45,7 @@ export default function Profile() {
           {user?.photoUrls && (
             <img
               src={`${"https://take-me-home-sqbog.ondigitalocean.app"}${user.photoUrls}`}
+              // "http://localhost:8080"
               alt="User Avatar"
             />
           )}

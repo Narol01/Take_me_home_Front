@@ -11,6 +11,7 @@ import close from "./../../media/icons/closeEye.png"
 
 
 export default function LoginForm() {
+
   const dispatch = useAppDispatch();
   const message = useAppSelector(selectLoginError);
   const navigate = useNavigate();
@@ -22,12 +23,10 @@ export default function LoginForm() {
   };
 
   const validationSchema = Yup.object().shape({
-    login: Yup.string().required("Username is required"),
-    password: Yup.string()
-      .min(4, "Password must be at least 4 characters")
-      .max(8, "Password must be no more than 8 characters") 
-      .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number") 
-      .required("Password is required"),
+    login: Yup.string()
+              .required("Please enter your login"),
+    password: Yup.string()                
+                 .required("Please enter your password"),
   });
 
   const handleLogin = async (values: UserLoginDto) => {
@@ -36,9 +35,10 @@ export default function LoginForm() {
       if (login.fulfilled.match(dispatchResult)) {
         const redirectPath = localStorage.getItem("redirectAfterLogin");
         if (redirectPath) {
-          localStorage.removeItem("redirectAfterLogin");
           navigate(redirectPath);
-        } else {
+          localStorage.removeItem("redirectAfterLogin");         
+        } 
+        else {
           navigate("/");
         }
       }
@@ -53,8 +53,9 @@ export default function LoginForm() {
         <h2 className={styles.header}>Sign In Form</h2>
         <p className={styles.subtitle}>
           Sign in here using your username and password
+          {message && <p>{`Please try again`}</p>}
         </p>
-        {message && <span>{message}</span>}
+                 
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

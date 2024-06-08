@@ -12,6 +12,7 @@ import { UserUpdateDto } from "../../features/auth/types";
 import styles from "./editUser.module.css";
 
 const EditUser: React.FC = () => {
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useAppSelector(selectUser);
@@ -37,10 +38,12 @@ const EditUser: React.FC = () => {
   };
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().matches(/^[A-Za-z]+$/, "Name can only contain Latin letters").required("Full Name is required"),
+    fullName: Yup.string()
+                 .matches(/^[A-Za-z]+$/, "Name can only contain Latin letters")
+                 .required("Full Name is required"),
     email: Yup.string()
-      .email("Invalid email format")
-      .required("Email is required"),
+              .email("Invalid email format")
+              .required("Email is required"),
     website: Yup.string(),
     phone: Yup.string(),
     telegram: Yup.string(),

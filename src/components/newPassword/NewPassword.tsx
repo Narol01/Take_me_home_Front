@@ -9,14 +9,16 @@ import styles from "./newPassword.module.css";
 
 const validationSchema = Yup.object().shape({
   oldPassword: Yup.string()
-    .required("Password is required"),
+                  .required("Please enter your password"),
   newPassword: Yup.string()
-    .max(8, "Password must be no more than 8 characters")
-    .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number")
-    .required("Password is required"),
+                  .min(4, "Password must be at least 4 characters")
+                  .max(8, "Password must be no more than 8 characters")
+                  .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number")
+                  .required("Please enter your new password"),
 });
 
 export default function NewPassword() {
+  
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectUser);
   const navigate = useNavigate();

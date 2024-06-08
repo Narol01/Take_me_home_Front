@@ -7,6 +7,7 @@ import catsImg from "./../../media/cats.png";
 import lapaImg from "./../../media/lapa.jpg";
 
 export default function Home() {
+  
   const navigate = useNavigate();
 
   const handlePetsTypeFilter = (petType: string) => {

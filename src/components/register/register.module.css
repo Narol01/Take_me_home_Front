@@ -256,13 +256,28 @@
   color: #9d9595;
 }
 
-
 .error {
   color: red;
   font-size: 12px;
   margin-top: 5px;
+  margin-bottom: 10px;
   height: 12px;
   text-align: center;
+}
+
+.error_password {
+  color: red;
+  transform:translateX(-100%)  ;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 12px;
+  text-align: center;
+}
+
+.error_message{
+  color: red;
+  margin-top: 10px;
 }
 
 .formGroup_checkboxGroup {

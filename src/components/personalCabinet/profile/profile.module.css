@@ -101,7 +101,6 @@
   background-color: #b0424d;
 }
 
-/* Медиазапросы для адаптивности */
 @media (max-width: 1200px) {
   .profile_container {
     max-width: 100%;

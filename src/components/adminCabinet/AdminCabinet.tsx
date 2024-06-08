@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteUser, getUsers, selectUsers } from '../../features/auth/authSlice';
+import { deleteUser, getUsers, selectIsAuthenticated, selectUsers } from '../../features/auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import s from "./adminCabinet.module.css";
 
 export default function AdminCabinet() {
     const dispatch = useAppDispatch();
+    //const isAuthenticated = useAppSelector(selectIsAuthenticated);
     const users = useAppSelector(selectUsers);
     const navigate = useNavigate();
 

@@ -55,7 +55,7 @@ export default function Header() {
                   ) : (
                     <li>
                       <Link to={`/personal-cabinet/${userSelected.login}`}>
-                        Personal cabinet
+                        {`${userSelected.login}'s cabinet`}
                       </Link>
                     </li>
                   )}

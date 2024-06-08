@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import {
-  deletePet,
-  getPet,
-  getPetsByFilter,
-  selectPet,
-  selectPets,
-} from "../../../features/pets/petsSlice"
+import { deletePet, getPet, getPetsByFilter, selectPet, selectPets } from "../../../features/pets/petsSlice"
 import s from "./adverts.module.css"
 import ModalDeleteAccount from "../../modals/modalDeleteAccount/ModalDeleteAccount"
 
 export default function Adverts() {
+  
   const { author } = useParams<{ author: string }>()
   const petsList = useAppSelector(selectPets)
   const pet = useAppSelector(selectPet)

@@ -4,6 +4,7 @@ import dogImg_2 from "./../../media/dog2.jpg"
 import dogImg_3 from "./../../media/dog3.jpg"
 
 export default function WantHelp() {
+  
   return (
     <div className={s.containerWantHelp}>
       <h2 className={s.h2WantHelp}>I Want to Help</h2>

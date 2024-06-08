@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
-import { useAppDispatch } from "../../app/hooks"
-import { register } from "../../features/auth/authSlice"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { register, selectRegisterError, selectUser } from "../../features/auth/authSlice"
 import { Link, useNavigate } from "react-router-dom"
 import s from "./register.module.css"
 import * as Yup from "yup"
@@ -9,9 +9,12 @@ import open from "./../../media/icons/openEye.png"
 import close from "./../../media/icons/closeEye.png"
 
 export default function Register() {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const message = useAppSelector(selectRegisterError);
+  // const currentUser = useAppSelector(selectUser);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const initialValues = {
@@ -27,14 +30,19 @@ export default function Register() {
   }
 
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().matches(/^[A-Za-z]+$/, "Name can only contain Latin letters").required("Required"),
-    login: Yup.string().required("Required"),
+    fullName: Yup.string()
+                 .matches(/^[A-Za-z]+$/, "Name can only contain Latin letters")
+                 .required("Required"),
+    login: Yup.string()
+              .required("Required"),
     password: Yup.string()
-      .min(4, "Password must be at least 4 characters")
-      .max(8, "Password must be no more than 8 characters") 
-      .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number") 
-      .required("Required"),
-    email: Yup.string().email("Invalid email format").required("Required"),
+                 .min(4, "Password must be at least 4 characters")
+                 .max(8, "Password must be no more than 8 characters") 
+                 .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,8}$/, "Password must contain at least one uppercase letter and one number") 
+                 .required("Required"),
+    email: Yup.string()
+              .email("Invalid email format")
+              .required("Required"),
     phone: Yup.string(),
     website: Yup.string(),
     telegram: Yup.string(),
@@ -65,9 +73,10 @@ export default function Register() {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const { avatar, agreeToTerms, ...user } = values
             try {
-              await dispatch(register({ user, file: avatar as File }))
+              await dispatch(register({ user, file: avatar as File })).unwrap();
               resetForm()
               navigate("/")
+              // `/personal_cabinet/${currentUser.login}`
             } catch (error) {
               console.error("Error in registration: ", error)
             } finally {
@@ -165,7 +174,7 @@ export default function Register() {
                 <ErrorMessage
                   name="password"
                   component="div"
-                  className={s.error}
+                  className={s.error_password}
                 />
               </div>
 
@@ -239,7 +248,7 @@ export default function Register() {
                   className={s.error}
                 />
               </div>
-
+              {message && <p className={s.error_message}>{`A user with this login already exists`}</p>}
               <button
                 type="submit"
                 className={s.formButton_register}

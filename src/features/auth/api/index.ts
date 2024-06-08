@@ -1,11 +1,4 @@
-import {
-  AuthState,
-  LoginResponse,
-  User,
-  UserCreateDto,
-  UserLoginDto,
-  UserUpdateDto,
-} from "../types"
+import { AuthState, LoginResponse, User, UserCreateDto, UserLoginDto, UserUpdateDto} from "../types"
 
 export interface PasswordDto {
   oldPassword: string
@@ -13,14 +6,11 @@ export interface PasswordDto {
 }
 
 export async function fetchRegister( userCreateDto: UserCreateDto, file: File ): Promise<User> {
-
   const formData = new FormData()
-
   // Добавление JSON-объекта как строки
   formData.append('registerDto', JSON.stringify(userCreateDto));
   // Добавление файлов в formData
   formData.append('image', file);
-
   const res = await fetch(`/api/account`, {
     method: "POST",
     headers: {
@@ -28,21 +18,16 @@ export async function fetchRegister( userCreateDto: UserCreateDto, file: File ):
     },
     body: formData,
   })
-
-  if (res.status === 409) {
-    throw new Error("Conflict: User already exists.")
-  }
-
   if (!res.ok) {
-    const errorData = await res.json()
-    throw new Error(errorData.message || "Failed to register user.")
+    const { message } = await res.json()
+    throw new Error(message)
+    // const errorData = await res.json()
+    // throw new Error(errorData.message || "Failed to register user.")
   }
   return await res.json()
 }
 
-export async function fetchLogin(
-  userLoginDto: UserLoginDto,
-): Promise<LoginResponse> {
+export async function fetchLogin(userLoginDto: UserLoginDto): Promise<LoginResponse> {
   const res = await fetch("/api/auth/login", {
     method: "POST",
     headers: {
@@ -51,7 +36,6 @@ export async function fetchLogin(
     },
     body: JSON.stringify(userLoginDto),
   })
-
   if (!res.ok) {
     const { message } = await res.json()
     throw new Error(message)
@@ -61,7 +45,6 @@ export async function fetchLogin(
 export async function fetchCurrentUser(): Promise<User> {
   const res = await fetch("/api/account", {
     headers: {
-      //"Content-Type": "application/json",
       accept: "*/*",
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
