@@ -142,8 +142,8 @@ export const authSlice = createAppSlice({
           )
           state.user = action.payload
           state.user = undefined
-          state.isAuthenticated = false
-          state.token = undefined
+          //state.isAuthenticated = false
+          //state.token = undefined
         },
         rejected: (state, action) => {
           console.error(action.error.message)

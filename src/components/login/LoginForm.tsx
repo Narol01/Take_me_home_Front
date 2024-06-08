@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { login, selectLoginError } from "../../features/auth/authSlice";
+import { login, selectLoginError, selectUser } from "../../features/auth/authSlice";
 import { UserLoginDto } from "../../features/auth/types";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -15,6 +15,7 @@ export default function LoginForm() {
   const dispatch = useAppDispatch();
   const message = useAppSelector(selectLoginError);
   const navigate = useNavigate();
+  const user = useAppSelector(selectUser);
   const [showPassword, setShowPassword] = useState(false);
 
   const initialValues: UserLoginDto = {
@@ -29,23 +30,44 @@ export default function LoginForm() {
                  .required("Please enter your password"),
   });
 
+  // const handleLogin = async (values: UserLoginDto) => {
+  //   try {
+  //     const dispatchResult = await dispatch(login(values));
+  //     if (login.fulfilled.match(dispatchResult)) {
+  //       const redirectPath = localStorage.getItem("redirectAfterLogin");
+  //       if (redirectPath) {
+  //         navigate(redirectPath);
+  //         localStorage.removeItem("redirectAfterLogin");         
+  //       } 
+  //       else {
+  //         navigate("/");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Authorization error:", error);
+  //   }
+  // };
+
   const handleLogin = async (values: UserLoginDto) => {
     try {
-      const dispatchResult = await dispatch(login(values));
-      if (login.fulfilled.match(dispatchResult)) {
-        const redirectPath = localStorage.getItem("redirectAfterLogin");
-        if (redirectPath) {
-          navigate(redirectPath);
-          localStorage.removeItem("redirectAfterLogin");         
-        } 
-        else {
-          navigate("/");
+        const dispatchResult = await dispatch(login(values));
+        if (login.fulfilled.match(dispatchResult)) {
+          if (user?.login === 'admin') {
+            navigate("/admin-cabinet");
+          }
+          const redirectPath = localStorage.getItem("redirectAfterLogin");
+          if (redirectPath) {
+              navigate(redirectPath);
+              localStorage.removeItem("redirectAfterLogin");
+          } else {
+            navigate('/');                
+          }
         }
-      }
     } catch (error) {
-      console.error("Authorization error:", error);
+        console.error("Authorization error:", error);
     }
-  };
+};
+
 
   return (
     <div className={styles.login_container}>
@@ -53,7 +75,6 @@ export default function LoginForm() {
         <h2 className={styles.header}>Sign In Form</h2>
         <p className={styles.subtitle}>
           Sign in here using your username and password
-          {message && <p>{`Please try again`}</p>}
         </p>
                  
         <Formik
@@ -102,6 +123,7 @@ export default function LoginForm() {
                   className={styles.error_message}
                 />
               </div>
+              {message && <p className={styles.p_message}>{`Please try again`}</p>}
               <button
                 type="submit"
                 disabled={isSubmitting}

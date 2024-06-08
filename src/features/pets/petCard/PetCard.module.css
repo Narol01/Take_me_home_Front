@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  /* height: 90vh; */
 }
 
 .box_petCard {
@@ -58,7 +57,6 @@
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
-  /* align-items: flex-start; */
   margin-bottom: 20px;
 }
 
@@ -154,7 +152,6 @@ text-align: left;
 .modal_content{
   display:flex;
   flex-direction: column;
-  justify-content: center;
   font-family:"Ubuntu", sans-serif;
 }
 
@@ -169,4 +166,10 @@ text-align: left;
   color: #4CAF50;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.modal_content button{
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
 }

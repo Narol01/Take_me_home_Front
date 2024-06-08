@@ -199,6 +199,13 @@
   width: 20px;
   height: auto;
 }
+
+.p_message{
+  color: #ad0b0b;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
 .button {
   width: 70%;
   padding: 10px;

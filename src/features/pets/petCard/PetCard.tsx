@@ -65,17 +65,17 @@ export default function PetCard() {
           setUserData(userData)
           setModalContent(
             <div className={style.modal_content}>
-              <p>Name: {userData.fullName}</p>
-              <button onClick={handleSendEmail}>Email: {userData.email}</button>
+              <p>Name: {userData.fullName}</p>              
               <p>Phone: {userData.phone}</p>
               <p>Telegram: {userData.telegram}</p>
-              <p>
+              <p>Website:
               <a 
                 href={`https://${userData?.website}`} 
                 target="_blank" rel="noopener noreferrer">
-                Website: {userData?.website}
+                 {` ${userData?.website}`}
               </a> 
-              </p>        
+              </p>
+              <button onClick={handleSendEmail}>Email: {userData.email}</button>        
                    
             </div>,
           )

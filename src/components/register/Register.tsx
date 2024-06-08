@@ -75,7 +75,7 @@ export default function Register() {
             try {
               await dispatch(register({ user, file: avatar as File })).unwrap();
               resetForm()
-              navigate("/")
+              navigate("/login-form")
               // `/personal_cabinet/${currentUser.login}`
             } catch (error) {
               console.error("Error in registration: ", error)
@@ -148,11 +148,7 @@ export default function Register() {
 
               <div className={s.form_group_register}>
 
-              <div className={s.password_wrapper_register}>
-                {/* <label htmlFor="password" className={s.required_field}>
-                  Password
-                </label> */}
-
+              <div className={s.password_wrapper_register}>                
                 <Field
                   type={showPassword ? "text" : "password"}
                   name="password"
