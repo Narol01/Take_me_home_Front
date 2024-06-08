@@ -74,8 +74,8 @@ export default function PetCard() {
                 target="_blank" rel="noopener noreferrer">
                  {` ${userData?.website}`}
               </a> 
-              </p>
-              <button onClick={handleSendEmail}>Email: {userData.email}</button>        
+              </p>Email:
+              <button onClick={handleSendEmail}>{` ${userData.email}`}</button>        
                    
             </div>,
           )
