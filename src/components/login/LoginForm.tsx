@@ -41,7 +41,6 @@ export default function LoginForm() {
           } else {
             navigate(`/`);                
           }
-          resetForm();
         }        
     } catch (error) {
         console.error("Authorization error:", error);

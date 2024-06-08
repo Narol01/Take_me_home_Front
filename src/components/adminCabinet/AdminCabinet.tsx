@@ -6,7 +6,6 @@ import s from "./adminCabinet.module.css";
 
 export default function AdminCabinet() {
     const dispatch = useAppDispatch();
-    //const isAuthenticated = useAppSelector(selectIsAuthenticated);
     const users = useAppSelector(selectUsers);
     const navigate = useNavigate();
 

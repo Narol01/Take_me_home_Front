@@ -117,7 +117,7 @@ export const authSlice = createAppSlice({
           state.user = action.payload
           state.userList = state.userList.map(e => {
             if (e.id === action.payload.id) {
-              state.userList.push(action.payload)//
+              state.userList.push(action.payload)
               return action.payload
             }
             return e
@@ -142,8 +142,8 @@ export const authSlice = createAppSlice({
           )
           state.user = action.payload
           state.user = undefined
-          //state.isAuthenticated = false
-          //state.token = undefined
+          state.isAuthenticated = false
+          state.token = undefined
         },
         rejected: (state, action) => {
           console.error(action.error.message)
