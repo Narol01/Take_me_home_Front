@@ -10,7 +10,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handlePetsTypeFilter = (petType: string) => {
-    navigate(/pets?petType=${petType});
+    navigate(`/pets?petType=${petType}`);
   };
 
   return (
@@ -23,7 +23,7 @@ export default function Home() {
       </div>
       <div className={styles.homePageContainer}>
         <img src={homeImg} alt="Cat" />
-
+        
         <div className={styles.content_buttons}>
           <div className={styles.content}>
             Our mission is to transform compassion into concrete actions so that
@@ -45,7 +45,6 @@ export default function Home() {
           </div>
         </div>        
       </div>      
-
       <div className={styles.lookingFor}>
         <h1 className={styles.lookingForTitle}>Looking for a tailed friend</h1>
         <div className={styles.dogs_cats_container}>
