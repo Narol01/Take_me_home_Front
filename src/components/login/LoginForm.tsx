@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { login, selectLoginError, selectUser } from "../../features/auth/authSlice";
 import { UserLoginDto } from "../../features/auth/types";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import styles from "./login.module.css";
 import { useState } from "react";
@@ -30,39 +30,19 @@ export default function LoginForm() {
                  .required("Please enter your password"),
   });
 
-  // const handleLogin = async (values: UserLoginDto) => {
-  //   try {
-  //     const dispatchResult = await dispatch(login(values));
-  //     if (login.fulfilled.match(dispatchResult)) {
-  //       const redirectPath = localStorage.getItem("redirectAfterLogin");
-  //       if (redirectPath) {
-  //         navigate(redirectPath);
-  //         localStorage.removeItem("redirectAfterLogin");         
-  //       } 
-  //       else {
-  //         navigate("/");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Authorization error:", error);
-  //   }
-  // };
-
-  const handleLogin = async (values: UserLoginDto) => {
+  const handleLogin = async (values: UserLoginDto, { resetForm }: FormikHelpers<UserLoginDto>) => {
     try {
         const dispatchResult = await dispatch(login(values));
         if (login.fulfilled.match(dispatchResult)) {
-          if (user?.login === 'admin') {
-            navigate("/admin-cabinet");
-          }
           const redirectPath = localStorage.getItem("redirectAfterLogin");
           if (redirectPath) {
               navigate(redirectPath);
               localStorage.removeItem("redirectAfterLogin");
           } else {
-            navigate('/');                
+            navigate(`/`);                
           }
-        }
+          resetForm();
+        }        
     } catch (error) {
         console.error("Authorization error:", error);
     }
