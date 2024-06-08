@@ -168,8 +168,12 @@ text-align: left;
   text-decoration: underline;
 }
 
-.modal_content button{
+.p_email{
   display: flex;
   justify-content: flex-start;
   margin-top: 10px;
+}
+
+.p_email button{
+  margin-left: 5px;
 }
