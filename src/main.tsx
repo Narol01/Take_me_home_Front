@@ -16,13 +16,13 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
-        {/* <HashRouter> */}
+        {/* <BrowserRouter> */}
+        <HashRouter>
           <QueryParamProvider adapter={ReactRouter6Adapter}>
             <App />
           </QueryParamProvider>
-        {/* </HashRouter> */}
-        </BrowserRouter>
+        </HashRouter>
+        {/* </BrowserRouter> */}
       </Provider>
     </React.StrictMode>,
   )
