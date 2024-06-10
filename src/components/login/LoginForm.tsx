@@ -17,6 +17,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const user = useAppSelector(selectUser);
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const initialValues: UserLoginDto = {
     login: "",
@@ -40,12 +41,22 @@ export default function LoginForm() {
               localStorage.removeItem("redirectAfterLogin");
           } else {
             navigate(`/`);                
-          }
-        }        
-    } catch (error) {
+          }          
+        } 
+        else {
+          setLoginError("Invalid username or password. Please try again.");
+        }           
+    } catch (error) {        
         console.error("Authorization error:", error);
+        setLoginError("Invalid username or password. Please try again.");
+      }
+  };
+
+  const handleFieldChange = () => {
+    if (loginError) {
+      setLoginError("");
     }
-};
+  };
 
 
   return (
@@ -69,6 +80,7 @@ export default function LoginForm() {
                   name="login"
                   placeholder="Username"
                   className={styles.input_login}
+                  onFocus={handleFieldChange}
                 />
                 <ErrorMessage
                   name="login"
@@ -83,6 +95,7 @@ export default function LoginForm() {
                     name="password"
                     placeholder="Password"
                     className={styles.input_pass}
+                    onFocus={handleFieldChange}
                   />
                   <button
                     type="button"
@@ -102,7 +115,8 @@ export default function LoginForm() {
                   className={styles.error_message}
                 />
               </div>
-              {message && <p className={styles.p_message}>{`Invalid username or password. Please try again`}</p>}
+
+                {loginError && <p className={styles.p_message}>{loginError}</p>}
               <button
                 type="submit"
                 disabled={isSubmitting}
