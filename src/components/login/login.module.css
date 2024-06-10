@@ -181,13 +181,11 @@
 }
 .input_pass {
   background-position: 10px -53px !important;
-  padding-left: 40px;  
 }
 
 .password_wrapper{
   position: relative;
 }
-
 .toggle_password {
   position: absolute;
   right: 70px;
@@ -200,9 +198,10 @@
 }
 
 .icon {
-  width: 20px;
-  height: auto;
+  width: 20px;  
+  height: auto;  
 }
+
 
 .p_message,
 .error_message{
@@ -210,7 +209,6 @@
   margin-top: 10px;
   font-size: 14px;
 }
-
 .error_message{
   margin-bottom: 10px;
 }

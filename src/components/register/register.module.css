@@ -130,7 +130,6 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 }
 
 .form_group_register input[type="text"] {
@@ -268,7 +267,6 @@
 
 .error_password {
   color: red;
-  /* transform:translateX(-100%); */
   font-size: 12px;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -334,6 +332,7 @@
   text-decoration: underline;
   color: darkgreen;
 }
+
 .password_wrapper_register{
   position: relative;
 }

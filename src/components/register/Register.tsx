@@ -342,7 +342,7 @@ export default function Register() {
               await dispatch(register({ user, file: avatar as File })).unwrap();
               resetForm()
               navigate("/")
-              // /personal_cabinet/${currentUser.login}
+
             } catch (error) {
               console.error("Error in registration: ", error)
             } finally {

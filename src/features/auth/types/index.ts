@@ -43,6 +43,7 @@ export interface AuthState {
   token?: string
   loginErrorMessage?: string
   registerErrorMessage?: string
+  updateErrorMessage?: string
 }
 
 export interface LoginResponse {

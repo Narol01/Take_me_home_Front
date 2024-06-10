@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  updateUser,
-  selectUser,
-  selectIsAuthenticated,
-} from "../../features/auth/authSlice";
+import { updateUser, selectUser, selectIsAuthenticated } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { UserUpdateDto } from "../../features/auth/types";
 import styles from "./editUser.module.css";
@@ -96,6 +92,7 @@ const EditUser: React.FC = () => {
   function setFieldError(arg0: string, arg1: string) {
     throw new Error("Function not implemented.");
   }
+
   return (
     <div className={styles.container_edituser}>
       <div className={styles.outerBox_editUser}>

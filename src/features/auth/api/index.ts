@@ -115,9 +115,10 @@ export async function fetchUpdateUser( id: number, userUpdateDto: UserUpdateDto,
     },
     body: formData,
   })
-  if (!res.ok) {
-    throw new Error("Failed to update user")
-  }
+    if (!res.ok) {
+      const { message } = await res.json()
+      throw new Error(message)
+    }
   return res.json()
 }
 

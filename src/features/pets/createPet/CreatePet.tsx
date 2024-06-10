@@ -92,7 +92,7 @@ export default function CreatePet() {
             const files = photos
             try {
               await dispatch(addPet({ petDTO, files }))
-              alert("Pet details updated successfully")
+              alert("The ad was successfully created")
               navigate(`/personal-cabinet/${userSelected?.login}`)
               resetForm()
             } catch (error) {
@@ -225,7 +225,7 @@ export default function CreatePet() {
                 />
               </div>
               <div className={styles.uploadGroup}>
-                <label>Maximum 3 photos can be uploaded</label>
+                <label>1 to 3 photos must be uploaded</label>
                 <div className={styles.uploadControls}>
                   {Array.from({ length: 3 }).map((_, index) => (
                     <div key={index} className={styles.photo_upload}>
