@@ -102,7 +102,7 @@ export default function LoginForm() {
                   className={styles.error_message}
                 />
               </div>
-              {message && <p className={styles.p_message}>{`Please try again`}</p>}
+              {message && <p className={styles.p_message}>{`Invalid username or password. Please try again`}</p>}
               <button
                 type="submit"
                 disabled={isSubmitting}
