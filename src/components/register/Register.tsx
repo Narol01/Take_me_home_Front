@@ -13,10 +13,9 @@ export default function Register() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const message = useAppSelector(selectRegisterError);
-  // const currentUser = useAppSelector(selectUser);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const initialValues = {
     email: "",
     password: "",
@@ -31,9 +30,10 @@ export default function Register() {
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-                 .matches(/^[A-Za-z\s]+$/, "Name can only contain Latin letters")
+                 .matches(/^(?![\\s])[A-Za-z\\s]+$/, "Name can only contain Latin letters or a space at the beginning of the line")
                  .required("Required"),
     login: Yup.string()
+              .matches(/^(?!\\s+$)[A-Za-z0-9!@#$%^&*()_+=:,.?-]+$/, "Login can contain only Latin letters, numbers, and special characters: ! @ # $ % ^ & * ( ) _ + = : , . ? - (no spaces).")
               .required("Required"),
     password: Yup.string()
                  .min(4, "Password must be at least 4 characters")
@@ -49,18 +49,20 @@ export default function Register() {
     agreeToTerms: Yup.bool().oneOf([true], "You must agree to the terms"),
   })
 
-  const handleAvatarChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: (field: string, value: any) => void,
-  ) => {
+
+  const handleAvatarChange = ( event: React.ChangeEvent<HTMLInputElement>, setFieldValue: (field: string, value: any) => void ) => {
     const files = event.currentTarget.files
     if (files && files.length > 0) {
       const file = files[0]
-
       setFieldValue("avatar", file)
       const avatarPreview = URL.createObjectURL(file)
       setAvatarPreview(avatarPreview)
     }
+  };
+
+  
+  function setFieldError(arg0: string, arg1: string) {
+    throw new Error("Function not implemented.")
   }
 
   return (
@@ -77,6 +79,7 @@ export default function Register() {
               resetForm()
               navigate("/")
               // `/personal_cabinet/${currentUser.login}`
+
             } catch (error) {
               console.error("Error in registration: ", error)
             } finally {
@@ -103,11 +106,7 @@ export default function Register() {
                     </div>
                   )}
                 </div>
-                <input
-                  type="file"
-                  id="fileInput"
-                  name="avatar"
-                  accept="image/*"
+                <input type="file" id="fileInput" name="avatar" accept="image/*"
                   onChange={event => handleAvatarChange(event, setFieldValue)}
                   style={{ display: "none" }}
                 />
@@ -124,6 +123,10 @@ export default function Register() {
                   name="fullName"
                   className={s.form_control_register}
                   placeholder="Full Name*"
+                  onChange={ (e: { target: { value: any } }) => {
+                    setFieldValue("fullName", e.target.value);
+                    setFieldError("fullName", "");
+                  } }
                 />
                 <ErrorMessage
                   name="fullName"
@@ -138,6 +141,10 @@ export default function Register() {
                   name="login"
                   className={s.form_control_register}
                   placeholder="Username*"
+                  onChange={ (e: { target: { value: any } }) => {
+                    setFieldValue("login", e.target.value);
+                    setFieldError("login", "");
+                  }}
                 />
                 <ErrorMessage
                   name="login"
@@ -154,6 +161,10 @@ export default function Register() {
                   name="password"
                   className={s.form_control_register}
                   placeholder="Password*"
+                  onChange={(e: { target: { value: any } }) => {
+                    setFieldValue("password", e.target.value);
+                    setFieldError("password", "");
+                  }}
                 />
                 <button
                     type="button"
@@ -180,6 +191,10 @@ export default function Register() {
                   name="email"
                   className={`${s.form_control_register} required`}
                   placeholder="Email*"
+                  onChange={(e: { target: { value: any } }) => {
+                    setFieldValue("email", e.target.value);
+                    setFieldError("email", "");
+                  }}
                 />
                 <ErrorMessage
                   name="email"

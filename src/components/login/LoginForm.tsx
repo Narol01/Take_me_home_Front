@@ -26,6 +26,7 @@ export default function LoginForm() {
 
   const validationSchema = Yup.object().shape({
     login: Yup.string()
+              //.matches(/^[A-Za-z0-9!@#$%^&*()_+=:,.?-]*$/, "Login can contain only Latin letters, numbers, and special characters: ! @ # $ % ^ & * ( ) _ + = : , . ? - (no spaces).")
               .required("Please enter your login"),
     password: Yup.string()                
                  .required("Please enter your password"),

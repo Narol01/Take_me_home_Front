@@ -12,6 +12,7 @@ const initialState: AuthState = {
   token: "",
   loginErrorMessage: undefined,
   registerErrorMessage: undefined,
+  updateErrorMessage: undefined
 }
 
 export const authSlice = createAppSlice({
@@ -115,6 +116,7 @@ export const authSlice = createAppSlice({
         pending: state => {},
         fulfilled: (state, action) => {
           state.user = action.payload
+          state.updateErrorMessage = undefined
           state.userList = state.userList.map(e => {
             if (e.id === action.payload.id) {
               state.userList.push(action.payload)
@@ -124,6 +126,7 @@ export const authSlice = createAppSlice({
           })
         },
         rejected: (state, action) => {
+          state.updateErrorMessage = action.error.message
           console.error(action.error.message)
         },
       },
@@ -192,8 +195,9 @@ export const authSlice = createAppSlice({
     selectToken: userState => userState.token,
     selectLoginError: userState => userState.loginErrorMessage,
     selectRegisterError: userState => userState.registerErrorMessage,
+    selectUpdateError: userState => userState.updateErrorMessage
   },
 })
 
 export const { register, login, user, logout, checkAuth, author, updateUser, deleteUser, getUsers, changePassword} = authSlice.actions
-export const { selectUser, selectUserContacts, selectRoles, selectUsers, selectIsAuthenticated, selectToken, selectLoginError, selectRegisterError} = authSlice.selectors
+export const { selectUser, selectUserContacts, selectRoles, selectUsers, selectIsAuthenticated, selectToken, selectLoginError, selectRegisterError, selectUpdateError} = authSlice.selectors

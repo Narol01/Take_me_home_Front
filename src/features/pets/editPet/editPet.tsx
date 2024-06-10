@@ -7,6 +7,7 @@ import { ageList, categoryList, countryList, sexList } from "../petsList/data"
 import styles from "./editPet.module.css"
 import { selectUser } from "../../auth/authSlice"
 import { PetEditDTO } from "../types"
+import * as Yup from "yup"
 
 const EditPet: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -55,6 +56,16 @@ const EditPet: React.FC = () => {
     }
   }, [currentPet])
 
+  const validationSchema = Yup.object().shape({
+    caption: Yup.string().required("Title is required"),
+    category: Yup.string().required("Category is required"),
+    gender: Yup.string().required("Gender is required"),
+    age: Yup.string().required("Age is required"),
+    country: Yup.string().required("Country is required"),
+    city: Yup.string().required("City is required"),
+    description: Yup.string().required("Description is required"),
+  });
+
   const handlePhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number,
@@ -86,14 +97,15 @@ const EditPet: React.FC = () => {
           .map(photo => photo.file)
           .filter(photo => photo !== null) as File[]
         await dispatch(
-          editPet({ petEditDTO: values, id: Number(petId), files: filePhotos }),
-        )
+          editPet({ petEditDTO: values, id: Number(petId), files: filePhotos })
+        ).unwrap();
         navigate(`/personal-cabinet/${currentUser?.login}`)
-
         resetForm()
       } catch (error) {
         console.error("Error:", error)
         alert("Error updating pet details")
+      } finally{
+        setSubmitting(false);
       }
     }
   }
@@ -104,13 +116,20 @@ const EditPet: React.FC = () => {
         <h1>Edit ad details</h1>
         <Formik
           initialValues={initialValues}
+          validationSchema={validationSchema}
           enableReinitialize
           onSubmit={handleSubmit}
         >
+
+        {({ isSubmitting, setFieldValue, setFieldError }) => (  
           <Form>
             <div className={styles.formGroup}>
               <label htmlFor="caption">Title (maximum 100 characters)</label>
-              <Field name="caption" type="text" maxLength={100} />
+              <Field name="caption" type="text" maxLength={100}
+                     onChange={(e: { target: { value: any; }; }) => {
+                      setFieldValue("caption", e.target.value);
+                      setFieldError("caption", "");
+                    }}/>
               <ErrorMessage
                 name="caption"
                 component="div"
@@ -121,7 +140,7 @@ const EditPet: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="category">Indicate category</label>
               <Field as="select" name="category">
-                <option value="" label="Select category" />
+                {/* <option value="" label="Select category" /> */}
                 {categoryList.map((category, index) => (
                   <option key={index} value={category.value}>
                     {category.value}
@@ -138,7 +157,7 @@ const EditPet: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="gender">Gender</label>
               <Field as="select" name="gender">
-                <option value="" label="Select gender" />
+                {/* <option value="" label="Select gender" /> */}
                 {sexList.map((gender, index) => (
                   <option key={index} value={gender.value}>
                     {gender.value}
@@ -155,7 +174,7 @@ const EditPet: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="age">Indicate the age of the animal</label>
               <Field as="select" name="age">
-                <option value="Unknown">Unknown</option>
+                {/* <option value="Unknown">Unknown</option> */}
                 {ageList.map((age, index) => (
                   <option key={index} value={age.value}>
                     {age.value}
@@ -172,7 +191,7 @@ const EditPet: React.FC = () => {
             <div className={styles.formGroup}>
               <label htmlFor="country">Indicate country</label>
               <Field as="select" name="country">
-                <option value="" label="Select country" />
+                {/* <option value="" label="Select country" /> */}
                 {countryList.map((country, index) => (
                   <option key={index} value={country.value}>
                     {country.value}
@@ -200,7 +219,11 @@ const EditPet: React.FC = () => {
               <label htmlFor="description">
                 Describe the animal's history, features, character
               </label>
-              <Field name="description" as="textarea" />
+              <Field name="description" as="textarea"
+                     onChange={(e: { target: { value: any; }; }) => {
+                      setFieldValue("description", e.target.value);
+                      setFieldError("description", "");
+                    }} />
               <ErrorMessage
                 name="description"
                 component="div"
@@ -234,10 +257,11 @@ const EditPet: React.FC = () => {
               ))}
             </div>
 
-            <button className={styles.formButton_editPet} type="submit">
-              Update
+            <button className={styles.formButton_editPet} type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Updating..." : "Update"}
             </button>
           </Form>
+        )}  
         </Formik>
       </div>
     </div>
