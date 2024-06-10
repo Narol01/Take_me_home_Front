@@ -22,10 +22,10 @@ const EditUser: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login-form"); // Redirect to login if not authenticated
+      navigate("/login-form"); 
     }
     if (user && user.photoUrls) {
-      setAvatarPreview(user.photoUrls); // Set current avatar as initial preview
+      setAvatarPreview(user.photoUrls); 
     }
   }, [isAuthenticated, navigate, user]);
 
@@ -39,7 +39,7 @@ const EditUser: React.FC = () => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
-                 .matches(/^[A-Za-z]+$/, "Name can only contain Latin letters")
+                 .matches(/^(?![\\s])[A-Za-z\\s]+$/, "Name can only contain Latin letters or a space at the beginning of the line")
                  .required("Full Name is required"),
     email: Yup.string()
               .email("Invalid email format")
@@ -49,9 +49,7 @@ const EditUser: React.FC = () => {
     telegram: Yup.string(),
   });
 
-  const handleSubmit = async (
-    values: UserUpdateDto,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  const handleSubmit = async ( values: UserUpdateDto, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void, resetForm: any }
   ) => {
     if (user && user.id) {
       const userId = user.id;
@@ -67,6 +65,7 @@ const EditUser: React.FC = () => {
             updateUser({ id: userId, userUpdateDto: values, file: undefined })
           ).unwrap();
         }
+        resetForm()
         navigate(`/personal-cabinet/${user?.login}`);
       } catch (error) {
         console.error("Failed to update user:", error);
@@ -94,6 +93,9 @@ const EditUser: React.FC = () => {
     return <p>Please log in to edit your profile.</p>;
   }
 
+  function setFieldError(arg0: string, arg1: string) {
+    throw new Error("Function not implemented.");
+  }
   return (
     <div className={styles.container_edituser}>
       <div className={styles.outerBox_editUser}>
@@ -107,12 +109,20 @@ const EditUser: React.FC = () => {
             <Form>
               <div className={styles.formGroup}>
                 <label htmlFor="fullName">Full Name:</label>
-                <Field type="text" name="fullName" />
+                <Field type="text" name="fullName"
+                       onChange={(e: { target: { value: any; }; }) => {
+                        setFieldValue("fullName", e.target.value);
+                        setFieldError("fullName", "");
+                      }} />
                 <ErrorMessage name="fullName" component="div" className={styles.error} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email:</label>
-                <Field type="email" name="email" />
+                <Field type="email" name="email"
+                        onChange={(e: { target: { value: any; }; }) => {
+                          setFieldValue("email", e.target.value);
+                          setFieldError("email", "");
+                        }} />
                 <ErrorMessage name="email" component="div" className={styles.error} />
               </div>
               <div className={styles.formGroup}>
@@ -164,3 +174,6 @@ const EditUser: React.FC = () => {
 };
 
 export default EditUser;
+function resetForm() {
+  throw new Error("Function not implemented.");
+}

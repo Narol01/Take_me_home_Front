@@ -181,13 +181,17 @@
 }
 .input_pass {
   background-position: 10px -53px !important;
-  padding-left: 40px;
+  padding-left: 40px;  
+}
+
+.password_wrapper{
+  position: relative;
 }
 
 .toggle_password {
   position: absolute;
-  left: 300px;
-  top: 196px;
+  right: 70px;
+  top: 15px;
   background: none;
   border: none;
   cursor: pointer;
@@ -200,10 +204,15 @@
   height: auto;
 }
 
-.p_message{
+.p_message,
+.error_message{
   color: #ad0b0b;
   margin-top: 10px;
   font-size: 14px;
+}
+
+.error_message{
+  margin-bottom: 10px;
 }
 
 .button {

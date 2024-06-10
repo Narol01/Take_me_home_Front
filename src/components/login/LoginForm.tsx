@@ -1,52 +1,64 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { login, selectLoginError, selectUser } from "../../features/auth/authSlice";
-import { UserLoginDto } from "../../features/auth/types";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import styles from "./login.module.css";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import {
+  login,
+  selectLoginError,
+  selectUser,
+} from "../../features/auth/authSlice"
+import { UserLoginDto } from "../../features/auth/types"
+import { Link, useNavigate } from "react-router-dom"
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik"
+import * as Yup from "yup"
+import styles from "./login.module.css"
+import { useState } from "react"
 import open from "./../../media/icons/openEye.png"
 import close from "./../../media/icons/closeEye.png"
 
-
 export default function LoginForm() {
-
-  const dispatch = useAppDispatch();
-  const message = useAppSelector(selectLoginError);
-  const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
-  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch()
+  const message = useAppSelector(selectLoginError)
+  const navigate = useNavigate()
+  const user = useAppSelector(selectUser)
+  const [showPassword, setShowPassword] = useState(false)
+  const [loginError, setLoginError] = useState("")
 
   const initialValues: UserLoginDto = {
     login: "",
     password: "",
-  };
+  }
 
   const validationSchema = Yup.object().shape({
-    login: Yup.string()
-              .required("Please enter your login"),
-    password: Yup.string()                
-                 .required("Please enter your password"),
-  });
+    login: Yup.string().required("Please enter your login"),
+    password: Yup.string().required("Please enter your password"),
+  })
 
-  const handleLogin = async (values: UserLoginDto, { resetForm }: FormikHelpers<UserLoginDto>) => {
+  const handleLogin = async (
+    values: UserLoginDto,
+    { resetForm }: FormikHelpers<UserLoginDto>,
+  ) => {
     try {
-        const dispatchResult = await dispatch(login(values));
-        if (login.fulfilled.match(dispatchResult)) {
-          const redirectPath = localStorage.getItem("redirectAfterLogin");
-          if (redirectPath) {
-              navigate(redirectPath);
-              localStorage.removeItem("redirectAfterLogin");
-          } else {
-            navigate(`/`);                
-          }
-        }        
+      const dispatchResult = await dispatch(login(values))
+      if (login.fulfilled.match(dispatchResult)) {
+        const redirectPath = localStorage.getItem("redirectAfterLogin")
+        if (redirectPath) {
+          navigate(redirectPath)
+          localStorage.removeItem("redirectAfterLogin")
+        } else {
+          navigate(`/`)
+        }
+      } else {
+        setLoginError("Invalid username or password. Please try again.")
+      }
     } catch (error) {
-        console.error("Authorization error:", error);
+      console.error("Authorization error:", error)
+      setLoginError("Invalid username or password. Please try again.")
     }
-};
+  }
 
+  const handleFieldChange = () => {
+    if (loginError) {
+      setLoginError("")
+    }
+  }
 
   return (
     <div className={styles.login_container}>
@@ -55,7 +67,7 @@ export default function LoginForm() {
         <p className={styles.subtitle}>
           Sign in here using your username and password
         </p>
-                 
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -69,6 +81,7 @@ export default function LoginForm() {
                   name="login"
                   placeholder="Username"
                   className={styles.input_login}
+                  onFocus={handleFieldChange}
                 />
                 <ErrorMessage
                   name="login"
@@ -83,6 +96,7 @@ export default function LoginForm() {
                     name="password"
                     placeholder="Password"
                     className={styles.input_pass}
+                    onFocus={handleFieldChange}
                   />
                   <button
                     type="button"
@@ -102,7 +116,7 @@ export default function LoginForm() {
                   className={styles.error_message}
                 />
               </div>
-              {message && <p className={styles.p_message}>{`Please try again`}</p>}
+              {loginError && <p className={styles.p_message}>{loginError}</p>}
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -113,8 +127,10 @@ export default function LoginForm() {
             </Form>
           )}
         </Formik>
-        <Link className={styles.link_account} to="/register">Create an account</Link>
+        <Link className={styles.link_account} to="/register">
+          Create an account
+        </Link>
       </div>
     </div>
-  );
+  )
 }
