@@ -92,7 +92,7 @@ export default function CreatePet() {
             const files = photos
             try {
               await dispatch(addPet({ petDTO, files }))
-              alert("Pet details updated successfully")
+              alert("The ad was successfully created")
               navigate(`/personal-cabinet/${userSelected?.login}`)
               resetForm()
             } catch (error) {

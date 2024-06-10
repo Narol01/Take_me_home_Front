@@ -99,6 +99,7 @@ const EditPet: React.FC = () => {
         await dispatch(
           editPet({ petEditDTO: values, id: Number(petId), files: filePhotos })
         ).unwrap();
+        alert("The ad has been successfully updated")
         navigate(`/personal-cabinet/${currentUser?.login}`)
         resetForm()
       } catch (error) {
