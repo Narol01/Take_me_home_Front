@@ -39,7 +39,7 @@ const EditUser: React.FC = () => {
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
-                 .matches(/^[A-Za-z]+$/, "Name can only contain Latin letters")
+                 .matches(/^[A-Za-z\s]+$/, "Name can only contain Latin letters")
                  .required("Full Name is required"),
     email: Yup.string()
               .email("Invalid email format")

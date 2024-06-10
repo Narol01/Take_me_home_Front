@@ -31,7 +31,7 @@ export default function Register() {
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-                 .matches(/^[A-Za-z]+$/, "Name can only contain Latin letters")
+                 .matches(/^[A-Za-z\s]+$/, "Name can only contain Latin letters")
                  .required("Required"),
     login: Yup.string()
               .required("Required"),
