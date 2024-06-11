@@ -251,7 +251,7 @@ textarea {
   height: 150px;
   border: 1px solid #cec9c8;
   background: #f0f1f1;
-  border-radius: 50%;
+  border-radius: 10px;
   overflow: hidden;
 }
 

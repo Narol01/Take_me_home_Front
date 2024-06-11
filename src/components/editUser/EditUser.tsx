@@ -1,96 +1,110 @@
-import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateUser, selectUser, selectIsAuthenticated } from "../../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-import { UserUpdateDto } from "../../features/auth/types";
-import styles from "./editUser.module.css";
+import React, { useEffect, useState } from "react"
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import * as Yup from "yup"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import {
+  updateUser,
+  selectUser,
+  selectIsAuthenticated,
+} from "../../features/auth/authSlice"
+import { useNavigate } from "react-router-dom"
+import { UserUpdateDto } from "../../features/auth/types"
+import styles from "./editUser.module.css"
 
 const EditUser: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const user = useAppSelector(selectUser)
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
-  const isAuthenticated = useAppSelector(selectIsAuthenticated);
-
-  const [avatarPreview, setAvatarPreview] = useState<string | ArrayBuffer | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<
+    string | ArrayBuffer | null
+  >(null)
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login-form"); 
+      navigate("/login-form")
     }
     if (user && user.photoUrls) {
-      setAvatarPreview(user.photoUrls); 
+      setAvatarPreview(user.photoUrls)
     }
-  }, [isAuthenticated, navigate, user]);
+  }, [isAuthenticated, navigate, user])
 
   const initialValues: UserUpdateDto = {
     fullName: user?.fullName || "",
     telegram: user?.telegram || "",
     email: user?.email || "",
     website: user?.website || "",
-    phone: user?.phone || ""
-  };
+    phone: user?.phone || "",
+  }
 
   const validationSchema = Yup.object({
     fullName: Yup.string()
-                 .matches(/^(?![\\s])[A-Za-z\\s]+$/, "Name can only contain Latin letters or a space at the beginning of the line")
-                 .required("Full Name is required"),
+      .matches(/^(?!\s)[A-Za-z\s]+$/, "Name can only contain Latin letters")
+      .required("Full Name is required"),
     email: Yup.string()
-              .email("Invalid email format")
-              .required("Email is required"),
+      .email("Invalid email format")
+      .required("Email is required"),
     website: Yup.string(),
     phone: Yup.string(),
     telegram: Yup.string(),
-  });
+  })
 
-  const handleSubmit = async ( values: UserUpdateDto, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void, resetForm: any }
+  const handleSubmit = async (
+    values: UserUpdateDto,
+    {
+      setSubmitting,
+    }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: any },
   ) => {
     if (user && user.id) {
-      const userId = user.id;
-      const selectedFile = (document.getElementById("file") as HTMLInputElement).files?.[0];
+      const userId = user.id
+      const selectedFile = (document.getElementById("file") as HTMLInputElement)
+        .files?.[0]
 
       try {
         if (selectedFile) {
           await dispatch(
-            updateUser({ id: userId, userUpdateDto: values, file: selectedFile })
-          ).unwrap();
+            updateUser({
+              id: userId,
+              userUpdateDto: values,
+              file: selectedFile,
+            }),
+          ).unwrap()
         } else {
           await dispatch(
-            updateUser({ id: userId, userUpdateDto: values, file: undefined })
-          ).unwrap();
+            updateUser({ id: userId, userUpdateDto: values, file: undefined }),
+          ).unwrap()
         }
-        resetForm()
-        navigate(`/personal-cabinet/${user?.login}`);
+        // resetForm()
+        navigate(`/personal-cabinet/${user?.login}`)
       } catch (error) {
-        console.error("Failed to update user:", error);
+        console.error("Failed to update user:", error)
       } finally {
-        setSubmitting(false);
+        setSubmitting(false)
       }
     } else {
-      console.error("User ID is undefined");
-      setSubmitting(false);
+      console.error("User ID is undefined")
+      setSubmitting(false)
     }
-  };
+  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.currentTarget.files?.[0];
+    const file = event.currentTarget.files?.[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
-        setAvatarPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+        setAvatarPreview(reader.result)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   if (!isAuthenticated) {
-    return <p>Please log in to edit your profile.</p>;
+    return <p>Please log in to edit your profile.</p>
   }
 
   function setFieldError(arg0: string, arg1: string) {
-    throw new Error("Function not implemented.");
+    throw new Error("Function not implemented.")
   }
 
   return (
@@ -106,36 +120,62 @@ const EditUser: React.FC = () => {
             <Form>
               <div className={styles.formGroup}>
                 <label htmlFor="fullName">Full Name:</label>
-                <Field type="text" name="fullName"
-                       onChange={(e: { target: { value: any; }; }) => {
-                        setFieldValue("fullName", e.target.value);
-                        setFieldError("fullName", "");
-                      }} />
-                <ErrorMessage name="fullName" component="div" className={styles.error} />
+                <Field
+                  type="text"
+                  name="fullName"
+                  onChange={(e: { target: { value: any } }) => {
+                    setFieldValue("fullName", e.target.value)
+                    setFieldError("fullName", "")
+                  }}
+                />
+                <ErrorMessage
+                  name="fullName"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email:</label>
-                <Field type="email" name="email"
-                        onChange={(e: { target: { value: any; }; }) => {
-                          setFieldValue("email", e.target.value);
-                          setFieldError("email", "");
-                        }} />
-                <ErrorMessage name="email" component="div" className={styles.error} />
+                <Field
+                  type="email"
+                  name="email"
+                  onChange={(e: { target: { value: any } }) => {
+                    setFieldValue("email", e.target.value)
+                    setFieldError("email", "")
+                  }}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="website">Website:</label>
                 <Field type="text" name="website" />
-                <ErrorMessage name="website" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="website"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="phone">Phone:</label>
                 <Field type="text" name="phone" />
-                <ErrorMessage name="phone" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="phone"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="telegram">Telegram:</label>
                 <Field type="text" name="telegram" />
-                <ErrorMessage name="telegram" component="div" className={styles.error} />
+                <ErrorMessage
+                  name="telegram"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
               <div className={styles.uploadGroup}>
                 <label>Upload Avatar</label>
@@ -151,15 +191,19 @@ const EditUser: React.FC = () => {
                       name="file"
                       type="file"
                       onChange={event => {
-                        handleFileChange(event);
-                        setFieldValue("file", event.currentTarget.files?.[0]);
+                        handleFileChange(event)
+                        setFieldValue("file", event.currentTarget.files?.[0])
                       }}
                     />
                     <div className={styles.content}>+</div>
                   </label>
                 </div>
               </div>
-              <button type="submit" disabled={isSubmitting} className={styles.formButton_editUser}>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={styles.formButton_editUser}
+              >
                 {isSubmitting ? "Updating..." : "Update Profile"}
               </button>
             </Form>
@@ -167,10 +211,10 @@ const EditUser: React.FC = () => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EditUser;
+export default EditUser
 function resetForm() {
-  throw new Error("Function not implemented.");
+  throw new Error("Function not implemented.")
 }
