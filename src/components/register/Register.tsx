@@ -294,7 +294,7 @@ export default function Register() {
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string()
-                 .matches(/^(?![\\s])[A-Za-z\\s]+$/, "Name can only contain Latin letters or a space at the beginning of the line")
+                 .matches(/^(?!\s)[A-Za-z\s]+$/, "Name can only contain Latin letters")
                  .required("Required"),
     login: Yup.string()
               .matches(/^(?!\\s+$)[A-Za-z0-9!@#$%^&*()_+=:,.?-]+$/, "Login can contain only Latin letters, numbers, and special characters: ! @ # $ % ^ & * ( ) _ + = : , . ? - (no spaces).")
