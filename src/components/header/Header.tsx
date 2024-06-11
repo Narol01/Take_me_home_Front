@@ -32,7 +32,9 @@ export default function Header() {
       <div className={styles.header_container}>
         <div className={styles.header_row}>
           <div className={styles.header_logo}>
-            <img src={logoImg} alt="Logo" />
+          <Link to="/">
+              <img src={logoImg} alt="Logo" />
+            </Link>
           </div>
           <nav className={styles.header_nav}>
             <ul>
